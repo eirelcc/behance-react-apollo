@@ -1,0 +1,3 @@
+# include secrets when deploying to now
+!.env
+!.env.production
