@@ -1,16 +1,24 @@
 {
-  "name": "behance-react-apollo",
-  "version": "0.1.0",
-  "private": true,
-  "dependencies": {
-    "react": "^16.2.0",
-    "react-dom": "^16.2.0",
-    "react-scripts": "1.1.1"
-  },
-  "scripts": {
-    "start": "react-scripts start",
-    "build": "react-scripts build",
-    "test": "react-scripts test --env=jsdom",
-    "eject": "react-scripts eject"
-  }
+    "name": "behance-react-apollo",
+    "version": "0.1.0",
+    "private": true,
+    "dependencies": {
+        "apollo-client-preset": "^1.0.8",
+        "apollo-link-ws": "^1.0.5",
+        "graphql": "^0.12.3",
+        "graphql-tag": "^2.6.1",
+        "react": "^16.2.0",
+        "react-apollo": "^2.0.4",
+        "react-dom": "^16.2.0",
+        "react-router": "^4.2.0",
+        "react-router-dom": "^4.2.2",
+        "react-scripts": "1.1.0",
+        "subscriptions-transport-ws": "^0.9.5"
+    },
+    "scripts": {
+        "start": "react-scripts start",
+        "build": "react-scripts build",
+        "test": "react-scripts test --env=jsdom",
+        "eject": "react-scripts eject"
+    }
 }
