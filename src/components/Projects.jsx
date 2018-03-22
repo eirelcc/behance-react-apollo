@@ -19,7 +19,7 @@ export const PROJECTS_QUERY = gql`
     }
 `;
 
-class LinkList extends Component {
+class Projects extends Component {
     // componentDidMount() {
     //     this._subscribeToNewLinks();
     //     this._subscribeToNewVotes();
@@ -206,4 +206,4 @@ export default graphql(PROJECTS_QUERY, {
     //         variables: { first, skip, orderBy }
     //     };
     // }
-})(LinkList);
+})(Projects);
