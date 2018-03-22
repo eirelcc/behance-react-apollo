@@ -71,7 +71,7 @@ import { AUTH_TOKEN } from '../constants';
 //     name: 'voteMutation'
 // })(Link);
 
-const Cover = ({ id, name, covers, owners }) => {
+const Cover = ({ name, covers, owners }) => {
     return (
         <div>
             <div>{name}</div>

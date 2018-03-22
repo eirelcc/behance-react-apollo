@@ -5,20 +5,16 @@ import gql from 'graphql-tag';
 import { AUTH_TOKEN } from '../constants';
 
 const SIGNUP_MUTATION = gql`
-    mutation SignupMutation(
-        $email: String!
-        $password: String!
-        $name: String!
-    ) {
-        signup(email: $email, password: $password, name: $name) {
+    mutation SignupMutation($username: String!, $password: String!) {
+        signup(username: $username, password: $password) {
             token
         }
     }
 `;
 
 const LOGIN_MUTATION = gql`
-    mutation LoginMutation($email: String!, $password: String!) {
-        login(email: $email, password: $password) {
+    mutation LoginMutation($username: String!, $password: String!) {
+        login(username: $username, password: $password) {
             token
         }
     }
@@ -27,33 +23,25 @@ const LOGIN_MUTATION = gql`
 class Login extends Component {
     state = {
         login: true, // switch between Login and SignUp
-        email: '',
         password: '',
-        name: ''
+        username: ''
     };
 
     render() {
+        const { login } = this.state;
         return (
             <div>
-                <h4 className="mv3">
-                    {this.state.login ? 'Login' : 'Sign Up'}
-                </h4>
+                <h4 className="mv3">{login ? 'Login' : 'Sign Up'}</h4>
                 <div className="flex flex-column">
-                    {!this.state.login && (
-                        <input
-                            value={this.state.name}
-                            onChange={e =>
-                                this.setState({ name: e.target.value })
-                            }
-                            type="text"
-                            placeholder="Your name"
-                        />
-                    )}
                     <input
-                        value={this.state.email}
-                        onChange={e => this.setState({ email: e.target.value })}
+                        value={this.state.username}
+                        onChange={e =>
+                            this.setState({ username: e.target.value })
+                        }
                         type="text"
-                        placeholder="Your email address"
+                        placeholder={
+                            login ? 'Username' : 'Your Behance username'
+                        }
                     />
                     <input
                         value={this.state.password}
@@ -61,7 +49,9 @@ class Login extends Component {
                             this.setState({ password: e.target.value })
                         }
                         type="password"
-                        placeholder="Choose a safe password"
+                        placeholder={
+                            login ? 'Password' : 'Choose a safe password'
+                        }
                     />
                 </div>
                 <div className="flex mt3">
@@ -87,11 +77,11 @@ class Login extends Component {
     }
 
     _confirm = async () => {
-        const { name, email, password } = this.state;
+        const { username, password } = this.state;
         if (this.state.login) {
             const result = await this.props.loginMutation({
                 variables: {
-                    email,
+                    username,
                     password
                 }
             });
@@ -100,8 +90,7 @@ class Login extends Component {
         } else {
             const result = await this.props.signupMutation({
                 variables: {
-                    name,
-                    email,
+                    username,
                     password
                 }
             });
