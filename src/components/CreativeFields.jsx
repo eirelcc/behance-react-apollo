@@ -1,4 +1,5 @@
 import * as React from 'react';
+import { Link } from 'react-router-dom';
 import { graphql } from 'react-apollo';
 import gql from 'graphql-tag';
 
@@ -30,14 +31,16 @@ class CreativeFields extends React.Component {
                     <ul className="list pa3 pa5-ns">
                         {creativeFields.map(({ id, name }) => (
                             <li className="dib mr2" key={id}>
-                                <a
-                                    href="#"
+                                <Link
+                                    to={`/projects?field=${encodeURIComponent(
+                                        name
+                                    )}`}
                                     className="f4 f2-ns b db pa2 link dim mid-gray"
                                 >
                                     <span className="fw7 underline-hover">
                                         #{name}
                                     </span>
-                                </a>
+                                </Link>
                             </li>
                         ))}
                     </ul>

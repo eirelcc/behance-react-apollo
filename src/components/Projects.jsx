@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { graphql } from 'react-apollo';
+import { compose, withProps } from 'recompose';
 import gql from 'graphql-tag';
 
 import Cover from './Cover';
@@ -27,7 +28,10 @@ class Projects extends Component {
     //     this._subscribeToNewVotes();
     // }
     render() {
-        const { projects, loading, error } = this.props.projectsQuery;
+        const {
+            projectsQuery: { projects, loading, error },
+            params: { field }
+        } = this.props;
 
         if (loading) return <div>Loading</div>;
         if (error) return <pre>{error.message}</pre>;
@@ -38,6 +42,7 @@ class Projects extends Component {
 
         return (
             <div>
+                {field && <div className="fw7 underline-hover">#{field}</div>}
                 <div className="cf pa2">
                     {projects.map(({ id, name, covers, owners }) => (
                         <div className="fl w-50 w-25-m w-20-l pa2" key={id}>
@@ -197,17 +202,23 @@ class Projects extends Component {
     // };
 }
 
-export default graphql(PROJECTS_QUERY, {
-    name: 'projectsQuery',
-    options: props => {
-        const params = getURLParams(props.location);
-        // const page = parseInt(ownProps.match.params.page, 10);
-        // const isNewPage = ownProps.location.pathname.includes('new');
-        // const skip = isNewPage ? (page - 1) * LINKS_PER_PAGE : 0;
-        // const first = isNewPage ? LINKS_PER_PAGE : 100;
-        // const orderBy = isNewPage ? 'createdAt_DESC' : null;
-        return {
-            variables: { params }
-        };
-    }
-})(Projects);
+const enhance = compose(
+    withProps(props => ({
+        params: getURLParams(props.location)
+    })),
+    graphql(PROJECTS_QUERY, {
+        name: 'projectsQuery',
+        options: ({ params }) => {
+            // const page = parseInt(ownProps.match.params.page, 10);
+            // const isNewPage = ownProps.location.pathname.includes('new');
+            // const skip = isNewPage ? (page - 1) * LINKS_PER_PAGE : 0;
+            // const first = isNewPage ? LINKS_PER_PAGE : 100;
+            // const orderBy = isNewPage ? 'createdAt_DESC' : null;
+            return {
+                variables: { params }
+            };
+        }
+    })
+);
+
+export default enhance(Projects);
