@@ -15,6 +15,8 @@ class App extends Component {
                 <div className="ph3 pv1 background-gray">
                     <Switch>
                         <Route exact path="/" component={Projects} />
+                        <Route path="/projects" component={Projects} />
+                        {/* <Route exact path="/projects/:project" component={Project} /> */}
                         <Route exact path="/login" component={Login} />
                         <Route
                             exact

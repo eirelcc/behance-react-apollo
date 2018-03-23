@@ -4,17 +4,19 @@ import gql from 'graphql-tag';
 
 import Cover from './Cover';
 import { LINKS_PER_PAGE } from '../constants';
+import { getURLParams } from '../utils';
 
 // 1
 export const PROJECTS_QUERY = gql`
-    query ProjectsQuery($input: ProjectsInput) {
-        projects(params: $input) {
+    query ProjectsQuery($params: ProjectsInput) {
+        projects(params: $params) {
             id
             name
             covers
             owners {
                 display_name
             }
+            fields
         }
     }
 `;
@@ -196,15 +198,16 @@ class Projects extends Component {
 }
 
 export default graphql(PROJECTS_QUERY, {
-    name: 'projectsQuery'
-    // options: ownProps => {
-    //     const page = parseInt(ownProps.match.params.page, 10);
-    //     const isNewPage = ownProps.location.pathname.includes('new');
-    //     const skip = isNewPage ? (page - 1) * LINKS_PER_PAGE : 0;
-    //     const first = isNewPage ? LINKS_PER_PAGE : 100;
-    //     const orderBy = isNewPage ? 'createdAt_DESC' : null;
-    //     return {
-    //         variables: { first, skip, orderBy }
-    //     };
-    // }
+    name: 'projectsQuery',
+    options: props => {
+        const params = getURLParams(props.location);
+        // const page = parseInt(ownProps.match.params.page, 10);
+        // const isNewPage = ownProps.location.pathname.includes('new');
+        // const skip = isNewPage ? (page - 1) * LINKS_PER_PAGE : 0;
+        // const first = isNewPage ? LINKS_PER_PAGE : 100;
+        // const orderBy = isNewPage ? 'createdAt_DESC' : null;
+        return {
+            variables: { params }
+        };
+    }
 })(Projects);
