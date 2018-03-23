@@ -11,6 +11,9 @@ export const CREATIVES_TO_FOLLOW_QUERY = gql`
             company
             images
             display_name
+            country
+            city
+            state
             projects {
                 stats {
                     appreciations
@@ -36,11 +39,22 @@ class CreativesToFollow extends React.Component {
             <div>
                 <div className="cf pa2">
                     {creativesToFollow.map(
-                        ({ id, display_name, images, projects }) => (
+                        ({
+                            id,
+                            display_name,
+                            images,
+                            country,
+                            city,
+                            state,
+                            projects
+                        }) => (
                             <Preview
                                 key={id}
                                 src={images[images.length - 1]}
                                 name={display_name}
+                                country={country}
+                                city={city}
+                                state={state}
                                 covers={getTopRatedCovers(projects)}
                             />
                         )
