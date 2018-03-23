@@ -4,6 +4,7 @@ import { Switch, Route, Redirect } from 'react-router-dom';
 import Login from './Login';
 import Header from './Header';
 import Projects from './Projects';
+import CreativeFields from './CreativeFields';
 import CreativesToFollow from './CreativesToFollow';
 
 class App extends Component {
@@ -19,6 +20,11 @@ class App extends Component {
                             exact
                             path="/creatives-to-follow"
                             component={CreativesToFollow}
+                        />
+                        <Route
+                            exact
+                            path="/creative-fields"
+                            component={CreativeFields}
                         />
                     </Switch>
                 </div>
