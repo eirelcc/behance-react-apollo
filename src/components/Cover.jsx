@@ -71,17 +71,12 @@ import { AUTH_TOKEN } from '../constants';
 //     name: 'voteMutation'
 // })(Link);
 
-const Cover = ({ name, covers, owners }) => {
+const Cover = ({ name, author, src }) => {
     return (
         <div>
             <div>{name}</div>
-            <div>By {owners[0].display_name}</div>
-            <img
-                src={covers[covers.length - 1]}
-                alt={name}
-                width="200"
-                height="150"
-            />
+            <div>By {author}</div>
+            <img src={src} alt={name} width="200" height="150" />
         </div>
     );
 };
