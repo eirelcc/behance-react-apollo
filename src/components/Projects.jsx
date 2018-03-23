@@ -37,12 +37,13 @@ class Projects extends Component {
         return (
             <div>
                 <div className="cf pa2">
-                    {projects.map(project => (
-                        <div
-                            className="fl w-50 w-25-m w-20-l pa2"
-                            key={project.id}
-                        >
-                            <Cover {...project} />
+                    {projects.map(({ id, name, covers, owners }) => (
+                        <div className="fl w-50 w-25-m w-20-l pa2" key={id}>
+                            <Cover
+                                name={name}
+                                author={owners[0].display_name}
+                                src={covers[covers.length - 1]}
+                            />
                         </div>
                     ))}
                 </div>
